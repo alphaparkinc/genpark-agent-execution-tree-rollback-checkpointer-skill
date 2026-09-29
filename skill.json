@@ -1,0 +1,46 @@
+{
+  "name": "genpark-agent-execution-tree-rollback-checkpointer-skill",
+  "version": "1.0.0",
+  "description": "Autonomous Agent Tree-of-Thoughts (ToT) State Rollback Checkpointer. Allows long-running personal agents (Manus, Devin) to snapshot environment/context states, evaluate branch viability, and backtrack when an exploration path fails without restarting from scratch.",
+  "tools": [
+    {
+      "name": "manage_execution_tree",
+      "description": "Manage agent execution tree checkpoints, state rollbacks, branch viability evaluations, and dead-end pruning.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "snapshot",
+              "rollback",
+              "evaluate_branch",
+              "prune_dead_ends",
+              "get_tree"
+            ],
+            "description": "The action to perform on the agent execution tree."
+          },
+          "node_id": {
+            "type": "string",
+            "description": "The identifier of the node/checkpoint for rollback or branch evaluation."
+          },
+          "parent_id": {
+            "type": "string",
+            "description": "Parent checkpoint ID when creating a new snapshot branch."
+          },
+          "state_payload": {
+            "type": "object",
+            "description": "State dictionary to checkpoint (variables, memory, plan steps, scratchpad)."
+          },
+          "branch_metrics": {
+            "type": "object",
+            "description": "Heuristic metrics (errors_encountered, goal_distance, confidence_score) for branch evaluation."
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    }
+  ]
+}
